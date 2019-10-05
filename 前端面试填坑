@@ -1,3 +1,6 @@
-微信小程序APPID：wx28e7b83917f60b82
-COSBROWSER的账号：AKIDYqxpnW5IH0TJsDd1NUKufGciY7Q2rxCI
-COSBROWSER的密码：AKIDYqxpnW5IH0TJsDd1NUKufGciY7Q2rxCI
+HTML部分
+
+1、Doctype的作用？标准模式与兼容模式各有什么区别？
+   （1）<!Doctype>声明位于HTML文档的第一行，处于<html>标签之前。告知浏览器用什么文档来解析这个文档。Doctype不存在或格式不正确会导致文档以兼容模式呈现。
+   
+   （2）标准模式的排版和JS运作模式都是以该浏览器支持的最高标准运行。在兼容模式中，页面以宽松的向后兼容的方式显示，模拟老式浏览器的行为防止站点无法工作。
