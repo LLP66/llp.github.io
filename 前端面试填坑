@@ -1188,6 +1188,1334 @@ GET和POST都是HTTP协议中两种请求方式，而HTTP协议是基于TCP/IP�
 
 
 
+1、HTML5的form如何关闭自动完成功能？
+ 给不想要提示的 form 或某个 input 设置为 autocomplete=off。
+2、如何实现浏览器内多个标签页之间的通信? (阿里)
+ WebSocket、SharedWorker；
+  也可以调用localstorge、cookies等本地存储方式；
+localstorge另一个浏览上下文里被添加、修改或删除时，它都会触发一个事件，
+我们通过监听事件，控制它的值来进行页面信息通信；
+注意quirks：Safari 在无痕模式下设置localstorge值时会抛出 QuotaExceededError 的异常；
+3、webSocket如何兼容低浏览器？(阿里)
+Adobe Flash Socket 、ActiveX HTMLFile (IE) 、基于 multipart 编码发送 XHR 、基于长轮询的 XHR
+4、页面可见性（Page Visibility API） 可以有哪些用途？
+通过 visibilityState 的值检测页面当前是否可见，以及打开网页的时间等;
+在页面被切换到其他后台进程的时候，自动暂停音乐或视频的播放；
+5、如何在页面上实现一个圆形的可点击区域？
+（1）map+area或者svg
+（2）border-radius
+（3）纯js实现 需要求一个点在不在圆上简单算法、获取鼠标坐标等等
+6、实现不使用 border 画出1px高的线，在不同浏览器的标准模式与怪异模式下都能保持一致的效果。
+<div style="height:1px;overflow:hidden;background:red"></div>
+7、网页验证码是干嘛的，是为了解决什么安全问题。
+区分用户是计算机还是人的公共全自动程序。可以防止恶意破解密码、刷票、论坛灌水；
+有效防止黑客对某一个特定注册用户用特定程序暴力破解方式进行不断的登陆尝试。
+8、title与h1的区别、b与strong的区别、i与em的区别？
+title属性没有明确意义只表示是个标题，H1则表示层次明确的标题，对页面信息的抓取也有很大的影响；
+strong是标明重点内容，有语气加强的含义，使用阅读设备阅读网络时：<strong>会重读，而<B>是展示强调内容。
+i内容展示为斜体，em表示强调的文本；
+Physical Style Elements -- 自然样式标签
+b, i, u, s, pre
+Semantic Style Elements -- 语义样式标签
+strong, em, ins, del, code
+应该准确使用语义样式标签, 但不能滥用, 如果不能确定时首选使用自然样式标签。
+CSS
+1、CSS优先级算法如何计算？
+*   优先级就近原则，同权重情况下样式定义最近者为准;
+*   载入样式以最后载入的定位为准;
+优先级为:
+同权重: 内联样式表（标签内部）> 嵌入样式表（当前文件中）> 外部样式表（外部文件中）。
+!important >  id > class > tag	
+important 比 内联优先级高
+2、CSS3新增伪类有那些？
+举例：
+p:first-of-type	选择属于其父元素的首个 <p> 元素的每个 <p> 元素。
+p:last-of-type	选择属于其父元素的最后 <p> 元素的每个 <p> 元素。
+p:only-of-type	选择属于其父元素唯一的 <p> 元素的每个 <p> 元素。
+p:only-child		选择属于其父元素的唯一子元素的每个 <p> 元素。
+p:nth-child(2)	选择属于其父元素的第二个子元素的每个 <p> 元素。
+::after			在元素之前添加内容,也可以用来做清除浮动。
+::before			在元素之后添加内容
+:enabled  		
+:disabled 		控制表单控件的禁用状态。
+:checked        单选框或复选框被选中。
+3、如何居中div？
+水平居中：给div设置一个宽度，然后添加margin:0 auto属性
+div{
+width:200px;
+margin:0 auto;}
+让绝对定位的div居中
+div {
+position: absolute;
+width: 300px;
+height: 300px;
+margin: auto;
+top: 0;
+left: 0;
+bottom: 0;
+right: 0;
+background-color: pink;	/* 方便看效果 */
+}
+水平垂直居中一
+确定容器的宽高 宽500 高 300 的层
+设置层的外边距
+div {
+ 	position: relative;		/* 相对定位或绝对定位均可 */
+ 	width:500px;
+ 	height:300px;
+ 	top: 50%;
+ 	left: 50%;
+ 	margin: -150px 0 0 -250px;     	/* 外边距为自身宽高的一半 */
+ 	background-color: pink;	 	/* 方便看效果 */
+  }
+水平垂直居中二
+ 未知容器的宽高，利用 `transform` 属性
+div {
+	position: absolute;		/* 相对定位或绝对定位均可 */
+ 	width:500px;
+ 	height:300px;
+ 	top: 50%;
+ 	left: 50%;
+ 	transform: translate(-50%, -50%);
+ 	background-color: pink;	 	/* 方便看效果 */
+}
+水平垂直居中三
+利用 flex 布局
+实际使用时应考虑兼容性
+.container {
+ 	display: flex;
+ 	align-items: center; 		/* 垂直居中 */
+ 	justify-content: center;	/* 水平居中 */
+}
+ .container div {
+ 	width: 100px;
+ 	height: 100px;
+ 	background-color: pink;		/* 方便看效果 */
+ }  
+4、display有哪些值？说明他们的作用。
+block    	块类型。默认宽度为父元素宽度，可设置宽高，换行显示。
+none        	元素不显示，并从文档流中移除。
+inline      	行内元素类型。默认宽度为内容宽度，不可设置宽高，同行显示。
+inline-block  默认宽度为内容宽度，可以设置宽高，同行显示。
+list-item   	象块类型元素一样显示，并添加样式列表标记。
+table       	此元素会作为块级表格来显示。
+inherit     	规定应该从父元素继承 display 属性的值。
+5、用纯CSS创建一个三角形的原理是什么？
+  把上、左、右三条边隐藏掉（颜色设为 transparent）
+  #demo {
+    width: 0;
+    height: 0;
+    border-width: 20px;
+    border-style: solid;
+    border-color: transparent transparent red transparent;
+  }
+6、一个满屏 品 字布局 如何设计?
+  简单的方式：
+  	上面的div宽100%，
+  	下面的两个div分别宽50%，
+  	然后用float或者inline使其不换行即可
+7、css多列等高如何实现？
+  利用padding-bottom|margin-bottom正负值相抵；
+  设置父容器设置超出隐藏（overflow:hidden），这样子父容器的高度就还是它里面的列没有设定padding-bottom时的高度，
+  当它里面的任 一列高度增加了，则父容器的高度被撑到里面最高那列的高度，
+  其他比这列矮的列会用它们的padding-bottom补偿这部分高度差。
+8、CSS里的visibility属性有个collapse属性值是干嘛用的？在不同浏览器下以后什么区别？
+对于普通元素visibility:collapse;会将元素完全隐藏,不占据页面布局空间,与display:none;表现相同. 如果目标元素为table,visibility:collapse;将table隐藏,但是会占据页面布局空间. 仅在Firefox下起作用,IE会显示元素,Chrome会将元素隐藏,但是占据空间.
+position跟display、margin collapse、overflow、float这些特性相互叠加后会怎么样？
+如果元素的display为none,那么元素不被渲染,position,float不起作用,如果元素拥有position:absolute;或者position:fixed;属性那么元素将为绝对定位,float不起作用.如果元素float属性不是none,元素会脱离文档流,根据float属性值来显示.有浮动,绝对定位,inline-block属性的元素,margin不会和垂直方向上的其他元素margin折叠.
+9、css定义的权重
+ 以下是权重的规则：标签的权重为1，class的权重为10，id的权重为100，以下例子是演示各种定义的权重值：
+  /*权重为1*/
+  div{
+  }
+  /*权重为10*/
+  .class1{
+  }
+  /*权重为100*/
+  #id1{
+  }
+  /*权重为100+1=101*/
+  #id1 div{
+  }
+  /*权重为10+1=11*/
+  .class1 div{
+  }
+  /*权重为10+10+1=21*/
+  .class1 .class2 div{
+  }
+  如果权重相同，则最后定义的样式会起作用，但是应该避免这种情况出现
+10、请解释一下为什么需要清除浮动？清除浮动的方式
+清除浮动是为了清除使用浮动元素产生的影响。浮动的元素，高度会塌陷，而高度的塌陷使我们页面后面的布局不能正常显示。
+（1）父级div定义height；
+（2）父级div 也一起浮动；
+（3）常规的使用一个class；
+  	.clearfix::before, .clearfix::after {
+  	    content: " ";
+  	    display: table;
+  	}
+  	.clearfix::after {
+  	    clear: both;
+  	}
+  	.clearfix {
+  	    *zoom: 1;
+  	}
+
+（4）SASS编译的时候，浮动元素的父级div定义伪类:after
+  	&::after,&::before{
+  	    content: " ";
+          visibility: hidden;
+          display: block;
+          height: 0;
+          clear: both;
+  	}
+  解析原理：
+  1) display:block 使生成的元素以块级元素显示,占满剩余空间;
+  2) height:0 避免生成内容破坏原有布局的高度。
+  3) visibility:hidden 使生成的内容不可见，并允许可能被生成内容盖住的内容可以进行点击和交互;
+  4）通过 content:"."生成内容作为最后一个元素，至于content里面是点还是其他都是可以的，例如oocss里面就有经典的 content:".",有些版本可能content 里面内容为空,一丝冰凉是不推荐这样做的,firefox直到7.0 content:”" 仍然会产生额外的空隙；
+  5）zoom：1 触发IE hasLayout。
+  通过分析发现，除了clear：both用来闭合浮动的，其他代码无非都是为了隐藏掉content生成的内容，这也就是其他版本的闭合浮动为什么会有font-size：0，line-height：0。
+11、什么是外边距合并？
+  外边距合并指的是，当两个垂直外边距相遇时，它们将形成一个外边距。
+  合并后的外边距的高度等于两个发生合并的外边距的高度中的较大者。
+  w3school介绍网址： http://www.w3school.com.cn/css/css_margin_collapsing.asp
+12、zoom:1的清除浮动原理?
+  清除浮动，触发hasLayout；
+  Zoom属性是IE浏览器的专有属性，它可以设置或检索对象的缩放比例。解决ie下比较奇葩的bug。
+  譬如外边距（margin）的重叠，浮动清除，触发ie的haslayout属性等。
+  来龙去脉大概如下：
+  当设置了zoom的值之后，所设置的元素就会就会扩大或者缩小，高度宽度就会重新计算了，这里一旦改变zoom值时其实也会发生重新渲染，运用这个原理，也就解决了ie下子元素浮动时候父元素不随着自动扩大的问题。
+  Zoom属是IE浏览器的专有属性，火狐和老版本的webkit核心的浏览器都不支持这个属性。然而，zoom现在已经被逐步标准化，出现在 CSS 3.0 规范草案中。
+  目前非ie由于不支持这个属性，它们又是通过什么属性来实现元素的缩放呢？
+  可以通过css3里面的动画属性scale进行缩放。
+13、移动端的布局用过媒体查询吗？
+假设你现在正用一台显示设备来阅读这篇文章，同时你也想把它投影到屏幕上，或者打印出来， 而显示设备、屏幕投影和打印等这些媒介都有自己的特点，CSS就是为文档提供在不同媒介上展示的适配方法
+当媒体查询为真时，相关的样式表或样式规则会按照正常的级联规被应用。 当媒体查询返回假， 标签上带有媒体查询的样式表 仍将被下载 （只不过不会被应用）。
+包含了一个媒体类型和至少一个使用 宽度、高度和颜色等媒体属性来限制样式表范围的表达式。 CSS3加入的媒体查询使得无需修改内容便可以使样式应用于某些特定的设备范围。
+<style> @media (min-width: 700px) and (orientation: landscape){ .sidebar { display: none; } } </style>
+14、CSS优化、提高性能的方法有哪些？
+  关键选择器（key selector）。选择器的最后面的部分为关键选择器（即用来匹配目标元素的部分）；
+  如果规则拥有 ID 选择器作为其关键选择器，则不要为规则增加标签。过滤掉无关的规则（这样样式系统就不会浪费时间去匹配它们了）；
+  提取项目的通用公有样式，增强可复用性，按模块编写组件；增强项目的协同开发性、可维护性和可扩展性;
+  使用预处理工具或构建工具（gulp对css进行语法检查、自动补前缀、打包压缩、自动优雅降级）；
+15、浏览器是怎样解析CSS选择器的？
+  样式系统从关键选择器开始匹配，然后左移查找规则选择器的祖先元素。
+  只要选择器的子树一直在工作，样式系统就会持续左移，直到和规则匹配，或者是因为不匹配而放弃该规则。
+16、在网页中的应该使用奇数还是偶数的字体？为什么呢？
+（1）比例关系。相对来说偶数字号比较容易和页面中其他部分的字号构成一个比例关系。如我使用14px的字体作为正文字号，那么其他部分的字体（如标题）就可以使用14×1.5 =21px的字体，或者在一些地方使用到了14×0.5=7px的padding或者margin，如果你是在用sass或者less编写css，这时候用处就凸显出来了。
+（2）UI设计师的缘故。大多数设计师用的软件按如PS提供的字号都是偶数，自然前端也是偶数。
+（3）浏览器的缘故。其一是低版本的浏览器Ie6会把奇数字体强制转化为偶数。其二是为了平分字体。偶数宽的汉字，如12px的汉子，去掉1像素的字体间距，填充了的字体像素宽度其实就是11px，这样的汉字中竖线左右是平分的，如“中”子，左右就是5px了。
+（4）系统差别。Windows 自带的点阵宋体（中易宋体）从 Vista 开始只提供 12、14、16 px 这三个大小的点阵，而 13、15、17 px 时用的是小一号的点阵（即每个字占的空间大了 1 px，但点阵没变），于是略显稀疏。而在Linux和其他手持设备上，奇数偶数的渲染效果其实相差不大。
+17、margin和padding分别适合什么场景使用？
+  margin是用来隔开元素与元素的间距；padding是用来隔开元素与内容的间隔。
+  margin用于布局分开元素使元素与元素互不相干；
+  padding用于元素与内容之间的间隔，让内容（文字）与（包裹）元素之间有一段
+18、抽离样式模块怎么写，说出思路，有无实践经验？[阿里航旅的面试题]
+19、元素竖向的百分比设定是相对于容器的高度吗？
+当按百分比设定一个元素的宽度时，它是相对于父容器的宽度计算的，但是，对于一些表示竖向距离的属性，例如padding-top,padding-bottom,margin-top,margin-bottom等，当按百分比设定它们时，依据的也是父容器的宽度，而不是高度。
+20、全屏滚动的原理是什么？用到了CSS的那些属性？
+原理：有点类似于轮播，整体的元素一直排列下去，假设有5个需要展示的全屏页面，那么高度是500%，只是展示100%，剩下的可以通过transform进行y轴定位，也可以通过margin-top实现。
+21、什么是响应式设计？响应式设计的基本原理是什么？如何兼容低版本的IE？
+响应式网站设计(Responsive Web design)的理念是：集中创建页面的图片排版大小，可以智能地根据用户行为以及 使用的设备环境（系统平台、屏幕尺寸、屏幕定向等）进行相对应的布局，无论用户正在使用笔记本还是iPad，我们 的页面都应该能够自动切换分辨率、图片尺寸及相关脚本功能等，以适应不同设备。
+响应式Web设计不仅仅是关于屏幕分辨率自适应以及自动缩放的图片等等，它更像是一种对于设计的全新思维模式, 如我们需要兼容不同屏幕分辨率、清晰度以及屏幕定向方式竖屏(portrait)、横屏(landscape)，怎样才能做到让一种 设计方案满足所有情况？
+基本原理: 媒体查询 @media
+兼容IE可以使用JS辅助一下来解决
+22、视差滚动效果，如何给每页做不同的动画？（回到顶部，向下滑动要再次出现，和只出现一次分别怎么做？）
+视差滚动（Parallax Scrolling）就是这样的效果之一。这种技术通过在网页向下滚动的时候，控 
+制背景的移动速度比前景的移动速度慢来创建出令人惊叹的3D效果。
+原理：（1）CSS3实现
+优点：开发时间短、性能和开发效率比较好，缺点是不能兼容到低版本的浏览器
+（2）jquery实现
+通过控制不同层滚动速度，计算每一层的时间，控制滚动效果。
+优点：能兼容到各个版本的，效果可控性好
+缺点：开发起来对制作者要求高
+（3）插件实现方式
+例如：parallax-scrolling，兼容性十分好
+23、::before 和 :after中双冒号和单冒号 有什么区别？解释一下这2个伪元素的作用。
+  单冒号(:)用于CSS3伪类，双冒号(::)用于CSS3伪元素。（伪元素由双冒号和伪元素名称组成）
+  双冒号是在当前规范中引入的，用于区分伪类和伪元素。不过浏览器需要同时支持旧的已经存在的伪元素写法，
+  比如:first-line、:first-letter、:before、:after等，
+  而新的在CSS3中引入的伪元素则不允许再支持旧的单冒号的写法。
+  想让插入的内容出现在其它内容前，使用::before，否者，使用::after；
+  在代码顺序上，::after生成的内容也比::before生成的内容靠后。
+  如果按堆栈视角，::after生成的内容会在::before生成的内容之上
+24、如何修改chrome记住密码后自动填充表单的黄色背景 ？
+  input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+    background-color: rgb(250, 255, 189); /* #FAFFBD; */
+    background-image: none;
+    color: rgb(0, 0, 0);
+  }
+25、你对line-height是如何理解的？
+设置元素浮动后，该元素的display值是多少？
+  自动变成了 display:block
+26、怎么让Chrome支持小于12px 的文字？
+ （1）用图片：如果是内容固定不变情况下，使用将小于12px文字内容切出做图片，这样不影响兼容也不影响美观。
+  （2）使用12px及12px以上字体大小：为了兼容各大主流浏览器，建议设计美工图时候设置大于或等于12px的字体大小，如果是接单的这个时候就需要给客户讲解小于12px浏览器不兼容等事宜。
+  （3）继续使用小于12px字体大小样式设置：如果不考虑chrome可以不用考虑兼容，同时在设置小于12px对象设置-webkit-text-size-adjust:none，做到最大兼容考虑。
+  （4）使用12px以上字体：为了兼容、为了代码更简单 从新考虑权重下兼容性。
+27、让页面里的字体变清晰，变细用CSS怎么做？
+  -webkit-font-smoothing: antialiased;
+28、font-style属性可以让它赋值为“oblique” oblique是什么意思？
+  倾斜的字体样式
+29、如果需要手动写动画，你认为最小时间间隔是多久，为什么？（阿里）
+  多数显示器默认频率是60Hz，即1秒刷新60次，所以理论上最小间隔为1/60＊1000ms ＝ 16.7ms
+30、display:inline-block 什么时候会显示间隙？(携程)
+  移除空格、使用margin负值、使用font-size:0、letter-spacing、word-spacing
+31、overflow: scroll时不能平滑滚动的问题怎么处理？
+（1）减少页面的dom节点数量，一个好的页面不能有太多太复杂的页面结构，影响页面渲染时候，页面渲染时间，具体的可以通过“document.getElementsByTagName('*').length”检查，可以去看看已知的好的页面，看看他们的节点数来评估。
+（2）适当的节流，做一个假的滚动条，然后监听，当移动到一定程度时候，调整目标区域的scroll-top值。这样会大量减少，浏览器重绘次数，并列表结构时有较好体验。
+32、有一个高度自适应的div，里面有两个div，一个高度100px，希望另一个填满剩下的高度。
+三种解法：
+（1）css3弹性盒子(Flex Box)解法：
+CSS3 弹性盒（ Flexible Box 或 flexbox），是一种当页面需要适应不同的屏幕大小以及设备类型时确保元素拥有恰当的行为的布局方式。
+引入弹性盒布局模型的目的是提供一种更加有效的方式来对一个容器中的子元素进行排列、对齐和分配空白空间。
+display:flex或display:inline-flex:指定父元素为弹性盒子;
+flex-direction:指定flex子项在flex父元素中的排列方式。
+flex-direction属性取值：
+1）row：主轴与行内轴方向作为默认的书写模式。即横向从左到右排列（左对齐）。
+2）row-reverse：对齐方式与row相反。
+3）column：主轴与块轴方向作为默认的书写模式。即纵向从上往下排列（顶对齐）。
+4）column-reverse：对齐方式与column相反。
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="gb2312">
+    <title>Title</title>
+    <style>
+        .box {
+            width:200px;
+            height:300px;
+            background:red;
+            display:flex;
+            display: -webkit-flex;
+            flex-direction:column;
+            -webkit-flex-direction:row;}
+        .a {height:100px;background:green;}
+        .b {background:blue;flex:1}
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="a"></div>
+        <div class="b"></div>
+    </div>
+</body>
+</html>
+
+（2）纯css解法：
+*外容器：position:relative。高度固定为100px的盒子使用相对定位，高度要求自适应的盒子使用绝对定位，再设定它的top：100px;left:0;bottom:0;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="gb2312">
+    <title>Title</title>
+    <style>
+        body { height: 100%; padding: 0; margin: 0; }
+        .box { height: 400px; position: relative; }
+        .a { height: 100px; background: #ff0000; }
+        .b { background: #00ff00; width: 100%; position: absolute; top: 100px ; left: 0 ; bottom: 0;}
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="a"></div>
+    <div class="b"></div>
+</div>
+</body>
+</html>
+（2）js解法：
+获取外层盒子和固定高度盒子的高度值，将其相减，结果就是自适应盒子的高度.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="gb2312">
+    <title>Title</title>
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <style>
+        body { height: 100%; padding: 0; margin: 0; }
+        #box { height: 400px; position: relative; }
+        #a { height: 100px; background: #ff0000; }
+        #b { background: #00ff00; width: 100%; }
+    </style>
+</head>
+<body>
+<div id="box">
+    <div id="a"></div>
+    <div id="b"></div>
+</div>
+</body>
+<script language="javascript" >
+    $(document).ready(function() {
+        var h1 = $("#box").height();
+        var h2 = $("#a").height();
+        var h3 = h1-h2;
+        $("#b").css("height",h3);
+    })
+</script>
+</html>
+33、什么是Cookie 隔离？（或者说：请求资源的时候不要让它带cookie怎么做）
+  如果静态文件都放在主域名下，那静态文件请求的时候都带有的cookie的数据提交给server的，非常浪费流量，
+  所以不如隔离开。
+  因为cookie有域的限制，因此不能跨域提交请求，故使用非主要域名的时候，请求头中就不会带有cookie数据，
+  这样可以降低请求头的大小，降低请求时间，从而达到降低整体请求延时的目的。
+  同时这种方式不会将cookie传入Web Server，也减少了Web Server对cookie的处理分析环节，
+  提高了webserver的http请求的解析速度。
+34、style标签写在body后与body前有什么区别？
+（1）写在body标签前利于浏览器逐步渲染。
+Resources downloading -> CSSOM+DOM ->RenderTree(composite) -> Layout ->paint
+（2）写在body标签之后。由于浏览器以逐行方式对html文档进行解析。当解析到写在尾部的样式表（外联或写在style标签）会导致浏览器停止之前的渲染，等待加载且解析样式表完成之后重新渲染；在windows的IE下可能会出现fouce现象（即样式失效导致的页面闪烁问题）；
+JavaScript
+1、介绍js的基本数据类型。
+  Undefined、Null、Boolean、Number、String、
+  ECMAScript 2015 新增:Symbol(创建后独一无二且不可变的数据类型 )
+2、介绍js有哪些内置对象？
+ Object 是 JavaScript 中所有对象的父对象
+ 数据封装类对象：Object、Array、Boolean、Number 和 String
+ 其他对象：Function、Arguments、Math、Date、RegExp、Error
+ 参考：http://www.ibm.com/developerworks/cn/web/wa-objectsinjs-v1b/index.html
+3、说几条写JavaScript的基本规范？
+ （1）不要在同一行声明多个变量。
+ （2）请使用 ===/!==来比较true/false或者数值
+ （3）使用对象字面量替代new Array这种形式
+ （4）不要使用全局函数。
+ （5）Switch语句必须带有default分支
+ （6）函数不应该有时候有返回值，有时候没有返回值。
+ （7）For循环必须使用大括号
+ （8）If语句必须使用大括号
+ （9）for-in循环中的变量 应该使用var关键字明确限定作用域，从而避免作用域污染。
+4、JavaScript原型，原型链 ? 有什么特点？
+ 每个对象都会在其内部初始化一个属性，就是prototype(原型)，当我们访问一个对象的属性时，
+ 如果这个对象内部不存在这个属性，那么他就会去prototype里找这个属性，这个prototype又会有自己的prototype，
+ 于是就这样一直找下去，也就是我们平时所说的原型链的概念。
+ 关系：instance.constructor.prototype = instance.__proto__
+ 特点：
+ JavaScript对象是通过引用来传递的，我们创建的每个新对象实体中并没有一份属于自己的原型副本。当我们修改原型时，与之相关的对象也会继承这一改变。
+  当我们需要一个属性的时，Javascript引擎会先看当前对象中是否有这个属性， 如果没有的话，
+  就会查找他的Prototype对象是否有这个属性，如此递推下去，一直检索到 Object 内建对象。
+ 	function Func(){}
+ 	Func.prototype.name = "Sean";
+ 	Func.prototype.getInfo = function() {
+ 	  return this.name;
+ 	}
+ 	var person = new Func();//现在可以参考var person = Object.create(oldObject);
+ 	console.log(person.getInfo());//它拥有了Func的属性和方法
+ 	//"Sean"
+ 	console.log(Func.prototype);
+ 	// Func { name="Sean", getInfo=function()}
+5、JavaScript有几种类型的值？，你能画一下他们的内存图吗？
+ 栈：原始数据类型（Undefined，Null，Boolean，Number、String）
+ 堆：引用数据类型（对象、数组和函数）
+ 两种类型的区别是：存储位置不同；
+ 原始数据类型直接存储在栈(stack)中的简单数据段，占据空间小、大小固定，属于被频繁使用数据，所以放入栈中存储；
+ 引用数据类型存储在堆(heap)中的对象,占据空间大、大小不固定。如果存储在栈中，将会影响程序运行的性能；引用数据类型在栈中存储了指针，该指针指向堆中该实体的起始地址。当解释器寻找引用值时，会首先检索其在栈中的地址，取得地址后从堆中获得实体
+6、如何将字符串转化为数字，例如'12.3b'?
+  * parseFloat('12.3b');
+  * 正则表达式，'12.3b'.match(/(\d)+(\.)?(\d)+/g)[0] * 1, 但是这个不太靠谱，提供一种思路而已。
+7、如何将浮点数点左边的数每三位添加一个逗号，如12000000.11转化为『12,000,000.11』?
+  function commafy(num){
+  	return num && num
+  		.toString()
+  		.replace(/(\d)(?=(\d{3})+\.)/g, function($1, $2){
+  			return $2 + ',';
+  		});
+  }
+8、如何实现数组的随机排序？
+  方法一：
+  	var arr = [1,2,3,4,5,6,7,8,9,10];
+  	function randSort1(arr){
+  		for(var i = 0,len = arr.length;i < len; i++ ){
+  			var rand = parseInt(Math.random()*len);
+  			var temp = arr[rand];
+  			arr[rand] = arr[i];
+  			arr[i] = temp;
+  		}
+  		return arr;
+  	}
+  	console.log(randSort1(arr));  	
+  方法二：
+  	var arr = [1,2,3,4,5,6,7,8,9,10];
+  	function randSort2(arr){
+  		var mixedArray = [];
+  		while(arr.length > 0){
+  			var randomIndex = parseInt(Math.random()*arr.length);
+  			mixedArray.push(arr[randomIndex]);
+  			arr.splice(randomIndex, 1);
+  		}
+  		return mixedArray;
+  	}
+  	console.log(randSort2(arr));
+  方法三：
+  	var arr = [1,2,3,4,5,6,7,8,9,10];
+  	arr.sort(function(){
+  		return Math.random() - 0.5;
+  	})
+  	console.log(arr);
+9、Javascript如何实现继承？
+ （1）构造继承
+ （2）原型继承
+ （3）实例继承
+ （4）拷贝继承
+ 原型prototype机制或apply和call方法去实现较简单，建议使用构造函数与原型混合方式。 
+ 	function Parent(){
+ 		this.name = 'wang';
+ 	}
+ 	function Child(){
+ 		this.age = 28;
+ 	}
+ 	Child.prototype = new Parent();//继承了Parent，通过原型
+ 	var demo = new Child();
+ 	alert(demo.age);
+ 	alert(demo.name);//得到被继承的属性
+10、JavaScript继承的几种实现方式？
+（一）原型链
+ECMAScript中将原型链作为实现继承的主要方法。其基本思想是利用原型让一个引用类型继承另一个引用类型的属性和方法。（不理解原型链的童鞋们可以翻阅一下我之前的博客，里面有详细的说明）
+实现原型链的一种基本模式。
+原型链虽然很强大，可以实现继承，但存在两个主要的问题。（1）包含引用类型值的原型属性会被所有实例共享，这会导致对一个实例的修改会影响另一个实例。（2）在创建子类型的实例时，不能向超类型的构造函数中传递参数。由于这两个问题的存在，实践中很少单独使用原型链。
+（二）借用构造函数
+在解决原型中包含引用类型值所带来的问题中，使用借用构造函数技术来解决。借用构造函数的基本思想，即在子类型构造函数的内部调用超类型构造函数。函数只不过是在特定环境中执行代码的对象，因此通过使用apply()和call()方法可以在新创建的对象上执行构造函数。
+借用构造函数存在两个问题：（1）无法避免构造函数模式存在的问题，方法都在构造函数中定义，因此无法服用函数。（2）在超类型的原型中定义的方法，对子类型而言是不可见的。因此这种技术很少单独使用。
+（三）组合继承
+组合继承，指的是将原型链和借用构造函数的技术组合到一起。思路是使用原型链实现对原型方法的继承，而通过借用构造函数来实现对实例属性的继承。这样，既通过在原型上定义方法实现了函数的复用，又能够保证每个实例都有它自己的属性。
+组合继承避免了原型链和借用构造函数的缺点，融合了他们的优点，是JavaScript中最常用的继承模式。
+11、javascript创建对象的几种方式？
+ javascript创建对象简单的说,无非就是使用内置对象或各种自定义对象，当然还可以用JSON；但写法有很多种，也能混合使用。
+ （1）对象字面量的方式
+ 	person={firstname:"Mark",lastname:"Yun",age:25,eyecolor:"black"};
+ （2）用function来模拟无参的构造函数
+ 	function Person(){}
+ 	var person=new Person();//定义一个function，如果使用new"实例化",该function可以看作是一个Class
+ 	person.name="Mark";
+ 	person.age="25";
+ 	person.work=function(){
+ 	alert(person.name+" hello...");
+ 	}
+ 	person.work();
+(3)用function来模拟参构造函数来实现（用this关键字定义构造的上下文属性）
+ 	function Pet(name,age,hobby){
+ 	   this.name=name;//this作用域：当前对象
+	   this.age=age;
+	   this.hobby=hobby;
+ 	   this.eat=function(){
+ 	      alert("我叫"+this.name+",我喜欢"+this.hobby+",是个程序员");
+ 	   }
+ 	}
+ 	var maidou =new Pet("麦兜",25,"coding");//实例化、创建对象
+ 	maidou.eat();//调用eat方法
+（4）用工厂方式来创建（内置对象）
+ 	 var wcDog =new Object();
+ 	 wcDog.name="旺财";
+ 	 wcDog.age=3;
+ 	 wcDog.work=function(){
+ 	   alert("我是"+wcDog.name+",汪汪汪......");
+ 	 }
+ 	 wcDog.work();
+ （5）用原型方式来创建
+ 	function Dog(){
+ 	 }
+ 	 Dog.prototype.name="旺财";
+ 	 Dog.prototype.eat=function(){
+ 	 alert(this.name+"是个吃货");
+ 	 }
+ 	 var wangcai =new Dog();
+ 	 wangcai.eat();
+ （6）用混合方式来创建
+ 	function Car(name,price){
+ 	  this.name=name;
+ 	  this.price=price;
+ 	}
+ 	 Car.prototype.sell=function(){
+ 	   alert("我是"+this.name+"，我现在卖"+this.price+"万元");
+ 	  }
+ 	var camry =new Car("凯美瑞",27);
+ 	camry.sell();
+12、Javascript作用链域?
+ 全局函数无法查看局部函数的内部细节，但局部函数可以查看其上层的函数细节，直至全局细节。
+ 当需要从局部函数查找某一属性或方法时，如果当前作用域没有找到，就会上溯到上层作用域查找，
+ 直至全局函数，这种组织形式就是作用域链。
+13、谈谈This对象的理解。
+this总是指向函数的直接调用者（而非间接调用者）；
+如果有new关键字，this指向new出来的那个对象；
+在事件中，this指向触发这个事件的对象，特殊的是，IE中的attachEvent中的this总是指向全局对象Window；
+14、eval是做什么的？
+ 它的功能是把对应的字符串解析成JS代码并运行；
+ 应该避免使用eval，不安全，非常耗性能（2次，一次解析成js语句，一次执行）。
+ 由JSON字符串转换为JSON对象的时候可以用eval，var obj =eval('('+ str +')');
+15、什么是window对象? 什么是document对象?
+ window对象是指浏览器打开的窗口。
+ document对象是Documentd对象（HTML 文档对象）的一个只读引用，window对象的一个属性。
+16、写一个通用的事件侦听器函数。
+ 	// event(事件)工具集，来源：github.com/markyun
+ 	markyun.Event = {
+ 		// 页面加载完成后
+ 		readyEvent : function(fn) {
+ 			if (fn==null) {
+ 				fn=document;
+ 			}
+ 			var oldonload = window.onload;
+ 			if (typeof window.onload != 'function') {
+ 				window.onload = fn;
+ 			} else {
+ 				window.onload = function() {
+ 					oldonload();
+ 					fn();
+ 				};
+ 			}
+ 		},
+ 		// 视能力分别使用dom0||dom2||IE方式 来绑定事件
+ 		// 参数： 操作的元素,事件名称 ,事件处理程序
+ 		addEvent : function(element, type, handler) {
+ 			if (element.addEventListener) {
+ 				//事件类型、需要执行的函数、是否捕捉
+ 				element.addEventListener(type, handler, false);
+ 			} else if (element.attachEvent) {
+ 				element.attachEvent('on' + type, function() {
+ 					handler.call(element);
+ 				});
+ 			} else {
+ 				element['on' + type] = handler;
+ 			}
+ 		},
+ 		// 移除事件
+ 		removeEvent : function(element, type, handler) {
+ 			if (element.removeEventListener) {
+ 				element.removeEventListener(type, handler, false);
+ 			} else if (element.datachEvent) {
+ 				element.detachEvent('on' + type, handler);
+ 			} else {
+ 				element['on' + type] = null;
+ 			}
+ 		},
+ 		// 阻止事件 (主要是事件冒泡，因为IE不支持事件捕获)
+ 		stopPropagation : function(ev) {
+ 			if (ev.stopPropagation) {
+ 				ev.stopPropagation();
+ 			} else {
+ 				ev.cancelBubble = true;
+ 			}
+ 		},
+ 		// 取消事件的默认行为
+ 		preventDefault : function(event) {
+ 			if (event.preventDefault) {
+ 				event.preventDefault();
+ 			} else {
+ 				event.returnValue = false;
+ 			}
+ 		},
+ 		// 获取事件目标
+ 		getTarget : function(event) {
+ 			return event.target || event.srcElement;
+ 		},
+ 		// 获取event对象的引用，取到事件的所有信息，确保随时能使用event；
+ 		getEvent : function(e) {
+ 			var ev = e || window.event;
+ 			if (!ev) {
+ 				var c = this.getEvent.caller;
+ 				while (c) {
+ 					ev = c.arguments[0];
+ 					if (ev && Event == ev.constructor) {
+ 						break;
+ 					}
+ 					c = c.caller;
+ 				}
+ 			}
+ 			return ev;
+ 		}
+ 	};
+13、["1", "2", "3"].map(parseInt) 答案是多少？
+ parseInt() 函数能解析一个字符串，并返回一个整数，需要两个参数 (val, radix)，
+ 其中 radix 表示要解析的数字的基数。【该值介于 2 ~ 36 之间，并且字符串中的数字不能大于radix才能正确返回数字结果值】;
+ 但此处 map 传了 3 个 (element, index, array),我们重写parseInt函数测试一下是否符合上面的规则。
+ function parseInt(str, radix) {
+     return str+'-'+radix;
+ };
+ var a=["1", "2", "3"];
+ a.map(parseInt);  // ["1-0", "2-1", "3-2"] 不能大于radix
+ 因为二进制里面，没有数字3,导致出现超范围的radix赋值和不合法的进制解析，才会返回NaN
+ 所以["1", "2", "3"].map(parseInt) 答案也就是：[1, NaN, NaN]
+ 详细解析：http://blog.csdn.net/justjavac/article/details/19473199
+14、事件是？IE与火狐的事件机制有什么区别？ 如何阻止冒泡？
+  （1） 我们在网页中的某个操作（有的操作对应多个事件）。例如：当我们点击一个按钮就会产生一个事件。是可以被 JavaScript 侦测到的行为。
+  （2） 事件处理机制：IE是事件冒泡、Firefox同时支持两种事件模型，也就是：捕获型事件和冒泡型事件；
+  （3）ev.stopPropagation();（旧ie的方法 ev.cancelBubble = true;）
+15、javascript 代码中的"use strict";是什么意思 ? 使用它区别是什么？
+ use strict是一种ECMAscript 5 添加的（严格）运行模式,这种模式使得 Javascript 在更严格的条件下运行,
+ 使JS编码更加规范化的模式,消除Javascript语法的一些不合理、不严谨之处，减少一些怪异行为。
+ 默认支持的糟糕特性都会被禁用，比如不能用with，也不能在意外的情况下给全局变量赋值;
+ 全局变量的显示声明,函数必须声明在顶层，不允许在非函数代码块内声明函数,arguments.callee也不允许使用；
+ 消除代码运行的一些不安全之处，保证代码运行的安全,限制函数中的arguments修改，严格模式下的eval函数的行为和非严格模式的也不相同;
+ 提高编译器效率，增加运行速度；
+ 为未来新版本的Javascript标准化做铺垫。
+16、new操作符具体干了什么呢?
+（1）创建一个空对象，并且 this 变量引用该对象，同时还继承了该函数的原型。
+（2）属性和方法被加入到 this 引用的对象中。
+（3）新创建的对象由 this 所引用，并且最后隐式的返回 this 。
+ var obj  = {};
+ obj.__proto__ = Base.prototype;
+ Base.call(obj);
+17、用原生JavaScript的实现过什么功能吗？
+18、Javascript中，有一个函数，执行时对象查找时，永远不会去查找原型，这个函数是？
+ hasOwnProperty
+ javaScript中hasOwnProperty函数方法是返回一个布尔值，指出一个对象是否具有指定名称的属性。此方法无法检查该对象的原型链中是否具有该属性；该属性必须是对象本身的一个成员。
+ 使用方法：
+ object.hasOwnProperty(proName)
+ 其中参数object是必选项。一个对象的实例。
+ proName是必选项。一个属性名称的字符串值。
+ 如果 object 具有指定名称的属性，那么JavaScript中hasOwnProperty函数方法返回 true，反之则返回 false。
+19、JSON 的了解？
+ JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。
+ 它是基于JavaScript的一个子集。数据格式简单, 易于读写, 占用带宽小
+ 如：{"age":"12", "name":"back"}
+ JSON字符串转换为JSON对象:
+ var obj =eval('('+ str +')');
+ var obj = str.parseJSON();
+ var obj = JSON.parse(str);
+ JSON对象转换为JSON字符串：
+ var last=obj.toJSONString();
+ var last=JSON.stringify(obj);
+20、js延迟加载的方式有哪些？
+ defer和async、动态创建DOM方式（用得最多）、按需异步载入js
+21、Ajax 是什么? 如何创建一个Ajax？
+ ajax的全称：Asynchronous Javascript And XML。
+ 异步传输+js+xml。
+ 所谓异步，在这里简单地解释就是：向服务器发送请求的时候，我们不必等待结果，而是可以同时做其他的事情，等到有了结果它自己会根据设定进行后续操作，与此同时，页面是不会发生整页刷新的，提高了用户体验。
+ (1)创建XMLHttpRequest对象,也就是创建一个异步调用对象
+ (2)创建一个新的HTTP请求,并指定该HTTP请求的方法、URL及验证信息
+ (3)设置响应HTTP请求状态变化的函数
+ (4)发送HTTP请求
+ (5)获取异步调用返回的数据
+ (6)使用JavaScript和DOM实现局部刷新
+22、Ajax 解决浏览器缓存问题？
+  （1）在ajax发送请求前加上 anyAjaxObj.setRequestHeader("If-Modified-Since","0")。
+  （2）在ajax发送请求前加上 anyAjaxObj.setRequestHeader("Cache-Control","no-cache")。
+  （3）在URL后面加上一个随机数： "fresh=" + Math.random();。
+（4）在URL后面加上时间戳："nowtime=" + new Date().getTime();。
+  （5）如果是使用jQuery，直接这样就可以了 $.ajaxSetup({cache:false})。这样页面的所有ajax都会执行这条语句就是不需要保存缓存记录。
+23、同步和异步的区别?
+同步的概念应该是来自于OS中关于同步的概念:不同进程为协同完成某项工作而在先后次序上调整(通过阻塞,唤醒等方式).同步强调的是顺序性.谁先谁后.异步则不存在这种顺序性.
+同步：浏览器访问服务器请求，用户看得到页面刷新，重新发请求,等请求完，页面刷新，新内容出现，用户看到新内容,进行下一步操作。
+异步：浏览器访问服务器请求，用户正常操作，浏览器后端进行请求。等请求完，页面不刷新，新内容也会出现，用户看到新内容。
+24、如何解决跨域问题?
+ jsonp、 iframe、window.name、window.postMessage、服务器上设置代理页面
+25、页面编码和被请求的资源编码如果不一致如何处理？
+对于 ajax 请求传递的参数，如果是 get 请求方式，参数如果传递中文，在有些浏览器 会乱码，不同的浏览器对参数编码的处理方式不同，所以对于 get 请求的参数需要使用 encodeURIComponent 函数对参数进行编码处理，后台开发语言都有相应的解码 api。对于 post 请求不需要 进行编码。
+26、AMD（Modules/Asynchronous-Definition）、CMD（Common Module Definition）规范区别？
+AMD 规范在这里：https://github.com/amdjs/amdjs-api/wiki/AMD
+CMD 规范在这里：https://github.com/seajs/seajs/issues/242
+ Asynchronous Module Definition，异步模块定义，所有的模块将被异步加载，模块加载不影响后面语句运行。所有依赖某些模块的语句均放置在回调函数中。
+  区别：
+（1）对于依赖的模块，AMD 是提前执行，CMD 是延迟执行。不过 RequireJS 从 2.0 开始，也改成可以延迟执行（根据写法不同，处理方式不同）。CMD 推崇 as lazy as possible.
+（2）CMD 推崇依赖就近，AMD 推崇依赖前置。看代码：
+// CMD
+define(function(require, exports, module) {
+     var a = require('./a')
+     a.doSomething()
+     // 此处略去 100 行
+     var b = require('./b') // 依赖可以就近书写
+     b.doSomething()
+     // ...
+ })
+// AMD 默认推荐
+ define(['./a', './b'], function(a, b) { // 依赖必须一开始就写好
+     a.doSomething()
+     // 此处略去 100 行
+     b.doSomething()
+     // ...
+ })
+26、JS模块加载器的轮子怎么造，也就是如何实现一个模块加载器？
+https://www.jb51.net/article/99337.htm
+https://www.cnblogs.com/jide/p/7136775.html
+28、谈一谈你对ECMAScript6的了解？
+29、ECMAScript6 怎么写class么，为什么会出现class这种东西?
+30、异步加载JS的方式有哪些？
+   (1) defer，只支持IE
+   (2) async：
+   (3) 创建script，插入到DOM中，加载完毕后callBack
+31、documen.write和 innerHTML的区别
+  document.write只能重绘整个页面
+  innerHTML可以重绘页面的一部分
+32、DOM操作——怎样添加、移除、移动、复制、创建和查找节点?
+  （1）创建新节点
+    createDocumentFragment()    //创建一个DOM片段
+    createElement()   //创建一个具体的元素
+    createTextNode()   //创建一个文本节点
+  （2）添加、移除、替换、插入
+    appendChild()
+    removeChild()
+    replaceChild()
+    insertBefore() //在已有的子节点前插入一个新的子节点
+  （3）查找
+    getElementsByTagName()    //通过标签名称
+    getElementsByName()    //通过元素的Name属性的值(IE容错能力较强，会得到一个数组，其中包括id等于name值的)
+    getElementById()    //通过元素Id，唯一性
+33、.call() 和 .apply() 的区别？
+   例子中用 add 来替换 sub，add.call(sub,3,1) == add(3,1) ，所以运行结果为：alert(4);
+   注意：js 中的函数其实是对象，函数名是对 Function 对象的引用。
+ 	function add(a,b)
+ 	{
+ 	    alert(a+b);
+ 	}
+ 	function sub(a,b)
+ 	{
+ 	    alert(a-b);
+ 	}
+ 	add.call(sub,3,1);
+35、数组和对象有哪些原生方法，列举一下？
+一、数组API
+var arr = [1,2,3,4,5,6];
+1-forEach遍历所有元素
+arr.forEach(function(item,index){
+console.log(index+":"+item);
+});
+2-every判断所有元素是否都符合条件
+var result = arr.every(function(item,index){
+if(item<5){
+return true;
+}
+});
+console.log(result);//不是所有元素都满足，所以返回false
+3-some判断是否有至少一个元素符合条件
+var result = arr.some(function(item,index){
+if(item<5){
+return true;
+}
+});
+console.log(result);//true
+4-sort排序
+arr.sort(function(a,b){
+return b-a;
+});
+console.log(arr);
+5-map对元素重新组装，生成新数组
+var result = arr.map(function(item,index){
+return "<b>"+item+"</b>";
+});
+console.log(result);//["<b>1</b>", "<b>2</b>", "<b>3</b>", "<b>4</b>", "<b>5</b>", "<b>6</b>"]
+6-filter过滤符合条件的元素
+var result = arr.filter(function(item,index){
+if(item<5){
+return true;
+}
+});
+console.log(result);//[1, 2, 3, 4]
+二、对象API
+1、for-in遍历对象属性
+var obj = {
+x:100,
+y:200,
+z:function(){}
+}
+function A(name){
+this.name = name;
+}
+var obj = new A("ycc");
+A.prototype.age = 20;
+var key;
+for(key in obj){
+if(obj.hasOwnProperty(key)){
+console.log(key,obj[key]);//key:键 obj[key]:值
+}
+}
+35、JS 怎么实现一个类。怎么实例化这个类
+36、JavaScript中的作用域与变量声明提升？
+https://blog.csdn.net/P_127/article/details/78593104
+一、变量作用域 
+说到这个概念，不有自主的想到this,scope 这两个关键字。
+JavaScript的this总是指向一个明确的对象，这个对象是在执行的时候动态绑定的。通俗的说就是谁调用我，我的this就是谁。 
+除去不常用的with和eval，具体的实际应用中，this的指向分为以下四种情况：
+    ·作为对象的调用；
+    ·作为普通函数的调用；
+    ·构造器的调用；
+·Function.propotype.call 和 Functio.propotype.apply 调用；
+二、变量声明提升 
+当我们的声明在同作用域靠后的位置，变量的声明会被自动提升到作用域的开头。 
+当我们如下声明一个变量
+var a=100;
+其实做了三件事：声明变量、执行变量的数据类型、赋值。
+36、如何编写高性能的Javascript？
+（1）尽量不要用for-in循环去访问数组，建议用for循环进行循环。
+function foo() {
+var i, b, c=[,,];
+for (i in c) {
+b = c[i];
+if(b === "")
+return b;
+}
+}
+//性能更好
+function foo() {
+var i, b, c=[,,];
+for (i=;i<c.length;i++) {
+b = c[i];
+if(b === "")
+return b;
+}
+} 
+（2）建议讲对象进行缓存处理，特别是DOM访问是比较消耗资源的。
+//c.length没有缓存，每次迭代都要计算一下数组的长度
+function foo() {
+var i, b, c=[,,];
+for (i=;i<c.length;i++) {
+b = c[i];
+if(b === "")
+return b;
+}
+}
+//性能更好，第一次将数组的长度缓存到变量l中，第二次及后续的循环无需计算数组长度
+function foo() {
+var i, b, c=[,,],l;
+for (i=,l=c.length;i<l;i++) {
+b = c[i];
+if(b === "")
+return b;
+}
+}
+
+//document.getElementById('info')没有缓存，每次都要遍历DOM
+function foo() {
+var e;
+document.getElementById('info').innerHTML="call ";
+document.getElementById('info').innerHTML="call ";
+}
+//性能更好，第二次无需访问DOM
+function foo() {
+var e=document.getElementById('info');
+e.innerHTML="call ";
+e.innerHTML="call ";
+}
+（3）建议不要在函数内进行过深的嵌套判断。
+//函数内嵌套判断语句过多
+function foo1() {
+var r={};
+r.data={};
+r.data.myProp=2;
+if (r) {
+if (r.data) {
+if (r.data.myProp) {
+//逻辑处理
+}
+else {
+//逻辑处理
+}
+}
+}
+}
+//性能更好
+function foo2() {
+var r={};
+r.data={};
+r.data.myProp=2;
+if (!r) return;
+if (!r.data) return;
+if (r.data.myProp) {
+//逻辑处理
+} else {
+//逻辑处理
+}
+}
+（4）避免你循环引用，防止内存泄漏
+//需要jQuery
+function foo(e,d) {
+$(e).on("click", function() {
+//对d进行逻辑处理
+cbk(d);
+}
+});
+}
+//打破循环!
+function foo(e, d) {
+$(e).on("click", cbk(d));
+}
+function cbk (d) {
+//逻辑处理
+}
+（5）建议避免啊在函数内返回一个未声明的变量，会污染外部变量
+function foo(a, b) {
+r = a + b;
+return r; //r未声明，则创建了一个全局变量
+}
+（6）var声明变量，建议写在多行
+//自己测试结果是foo快，但也有一种观点是foo快
+function foo() {
+var c = ;
+var sum=;
+var d = ;
+var e;
+}
+function foo() {
+var c = ,sum=, d = , e;
+}
+37、那些操作会造成内存泄漏？
+(1)意外的全局变量引起的内存泄漏
+(2)闭包引起的内存泄漏
+(3)没有清理的DOM元素引用
+(4)被遗忘的定时器或者回调
+(5)子元素存在引起的内存泄漏
+(6)IE7/8引用计数使用循环引用产生的问题
+38、怎样避免内存泄漏
+（1）减少不必要的全局变量，或者生命周期较长的对象，及时对无用的数据进行垃圾回收；
+（2）注意程序逻辑，避免“死循环”之类的；
+（3）避免创建过多的对象，原则：不用的东西要及时归还。
+39、JQuery的源码看过吗？能不能简单概况一下它的实现原理？
+https://www.cnblogs.com/zuoxiaolong/p/jquery1.html
+40、jQuery.fn的init方法返回的this指的是什么对象？为什么要返回this？
+返回的this就是jQuery.fn的实例
+41、jquery中如何将数组转化为json字符串，然后再转化回来？
+jQuery中没有提供这个功能，所以你需要先编写两个jQuery的扩展：
+	$.fn.stringifyArray = function(array) {
+	    return JSON.stringify(array)
+	}
+	$.fn.parseArray = function(array) {
+	    return JSON.parse(array)
+	}
+	然后调用：
+	$("").stringifyArray(array)
+42、jQuery 的属性拷贝(extend)的实现原理是什么，如何实现深拷贝？
+https://blog.csdn.net/jiang7701037/article/details/98758955
+43、jquery.extend 与 jquery.fn.extend的区别？
+ * jquery.extend 为jquery类添加类方法，可以理解为添加静态方法
+ * jquery.fn.extend:
+        源码中jquery.fn = jquery.prototype，所以对jquery.fn的扩展，就是为jquery类添加成员函数
+ 使用：
+ jquery.extend扩展，需要通过jquery类来调用，而jquery.fn.extend扩展，所有jquery实例都可以直接调用。
+44、jQuery 的队列是如何实现的？队列可以用在哪些地方？
+45、谈一下Jquery中的bind(),live(),delegate(),on()的区别？
+.bind()方法将事件类型和一个事件处理函数直接注册到了被选中的DOM元素中。这个方法被使用得最久,在此期间,它很好的解决了各种跨浏览器的问题。
+.bind()方法将会把事件处理函数连接到所有匹配的a标签。这种方式并不好。这样做的话，它不仅在所有匹配的元素中隐含地迭代附加事件处理函数，而且这些操作非常浪费（多余），因为这些相同的事件处理函数是被一遍一遍的重复的添加到所有匹配的标签上。
+优点:
+（1）适用于各种浏览器
+（2）连接事件处理函数非常方便快捷
+（3）可以使用 .click() ,  .hover()等简写方法来更方面地连接事件处理函数
+（4）对于一个简单的ID选择器,使用.bind() 方法不仅可以很快地连接事件处理函数,而且当事件被触发时, 事件处理函数几乎是马上就被调用了
+缺点:
+（1）这样方法会将所有的事件处理函数附加到所有匹配的元素
+（2）不可以动态地匹配相同选择器的元素
+（3）当操作大量匹配的元素时会有性能方面的问题
+（4）附加操作是在前期完成的,这可能导致页面加载时存在性能问题
+.live()方法使用了事件委托的概念来实施其所谓的“魔法”。你调用live()方法的方式就像是调用bind()方法那样方便。然而在这表面之下， .live()方法与前者的实现方式大不相同。 .live()方法将与事件处理函数关联的选择器和事件信息一起附加到文档的根级元素（即document）。通过将事件信息注册到document上，这个事件处理函数将允许所有冒泡到document的事件调用它（例如委托型、传播型事件）。一旦有一个事件冒泡到document元素上，Jquery会根据选择器或者事件的元数据来决定哪一个事件处理函数应该被调用，如果这个事件处理函数存在的话。这个额外的工作将会在用户交互时对性能方面造成一定的影响，但是初始化注册事件的过程相当地快。
+.bind()这个例子与上面bind()方法的例子对比的话有一个优点在于它仅仅把事件处理函数附加到document元素一次，而不是很多次。这样不仅更快，而且还减少了性能的浪费。然而，使用这个方法也会带来很多问题，下面将一一列出。
+优点:
+（1）所有的事件处理函数都只会被注册一次，而不是像bind()那样进行多次注册
+（2）将bind()方法升级到live()方法非常方便，你仅需要将"bind"替代为"live"就可以了
+（3）那些被动态添加到DOM的元素也将被神奇的匹配到，因为真实的事件信息是被注册到document元素上的
+（4）你可以在文档加载完之前连接事件处理函数，这样可以帮助你更好地利用你可能没有用的时间
+缺点:
+（1）这个方法在Jquery 1.7以后的版本被弃用了，你应该在你的代码里逐步放弃使用它
+（2）使用这个方法时链式操作没有得到正确的支持，可能会出现某些错误
+（3）所做的匹配操作基本上没用因为它只用于在document元素上注册事件处理函数
+（4）使用 event.stopPropogation() 方法将会没用，因为事件总是已经被委托到了document元素上
+（5）因为所有的选择器或者事件信息都被附加到document元素上了，所以一旦有一个事件要调用某个事件处理函数，Jquery会在一大堆储存的元数据中使用matchesSelector方法来决定哪一个事件处理函数将会被调用，如果这个函数有的话。
+（6）因为你所连接的事件总是被委托到document上，所如果你的DOM的层级很深的话，这会导致一定的性能问题。
+.bind()这个例子与上面bind()方法的例子对比的话有一个优点在于它仅仅把事件处理函数附加到document元素一次，而不是很多次。这样不仅更快，而且还减少了性能的浪费。然而，使用这个方法也会带来很多问题，下面将一一列出。
+优点:
+（1）所有的事件处理函数都只会被注册一次，而不是像bind()那样进行多次注册
+（2）将bind()方法升级到live()方法非常方便，你仅需要将"bind"替代为"live"就可以了
+（3）那些被动态添加到DOM的元素也将被神奇的匹配到，因为真实的事件信息是被注册到document元素上的
+（4）你可以在文档加载完之前连接事件处理函数，这样可以帮助你更好地利用你可能没有用的时间
+缺点:
+（1）这个方法在Jquery 1.7以后的版本被弃用了，你应该在你的代码里逐步放弃使用它
+（2）使用这个方法时链式操作没有得到正确的支持，可能会出现某些错误
+（3）所做的匹配操作基本上没用因为它只用于在document元素上注册事件处理函数
+（4）使用 event.stopPropogation() 方法将会没用，因为事件总是已经被委托到了document元素上
+（5）因为所有的选择器或者事件信息都被附加到document元素上了，所以一旦有一个事件要调用某个事件处理函数，Jquery会在一大堆储存的元数据中使用matchesSelector方法来决定哪一个事件处理函数将会被调用，如果这个函数有的话。
+（6）因为你所连接的事件总是被委托到document上，所如果你的DOM的层级很深的话，这会导致一定的性能问题
+.delegate()方法十分强大。在上面这个例子中，与事件处理函数关联的选择器和事件信息将会被附加到( #members" )这个元素上。这样做比使用live()高效多了，因为live()方法总是将与事件处理函数关联的选择器和事件信息附加到document元素上。另外，使用.delegate()方法解决许多其他问题。请参阅下方列出的详细信息。
+优点:
+（1）你可以选择将选择器或者事件信息附加到指定的元素。
+（2）匹配操作实际上在前面并没有执行，而是用来注册到指定的元素。
+（3）链式操作可以得到正确的支持
+（4）Jquery仍然需要迭代这些选择器或者事件信息来匹配元素，不过因为你可以选择哪一个元素作为根元素，所以筛选的量会大幅减少
+（5）因为这项技术使用了事件委托机制，它可以匹配到被动态地添加到DOM的元素
+（6）你可以在文档加载完之前连接事件处理函数
+缺点:
+（1）从.bind()方法不可以直接升级到.delegate()方法
+（2）Jquery仍然需要使用marchesSelector方法在附加到指定根元素的选择器或者事件信息中筛选决定哪一个事件处理函数会被调用。然而，附加到指定根元素的元数据会比使用live()方法的时候要小得多。
+（3）当操作大量匹配的元素时会有性能方面的问题
+（4）附加操作是在前期完成的,这可能导致页面加载时存在性能问题
+使用On方法
+你知道吗，在Jquery 1.7版本中.bind() ， .live() 和.delegate()方法只需要使用.on()方法一种方式来调用它们。当然.unbind() ， .die() 和.undelegate()方法也一样。
+如何使用.on()方法决定了它如何调用其他方法。你可以认为.on()方法被具有不同签名的方法”重载“了，而这些方法实现了不同的事件绑定的连接方式。 .on()方法的出现为API带来了很多方面的一致性，并希望让事情变得不那么混乱。
+优点:
+（1）使各种事件绑定方法一致。
+（2）因为在Jquery源码中.bind() ， .live() 和.delegate()方法实际上是调用了此方法，因此简化了jQuery代码库并删除了一级重定向。
+（3）这种方式仍然提供了使用.delegate()方法的优点，并且仍然提供对.bind()方法的支持，如果你需要的话。
+缺点:
+给人带来了一些疑惑，因为方法的实际执行方式将根据你如何调用方法而改变。
+总结
+如果你对不同的绑定事件方法有所迷惑，那么不要担心，因为API发展了一段时间了，有很多前人的经验可以借鉴。也有很多人将这些方法视为魔法，不过一旦你了解了他们工作背后的原理，将帮助您了解如何更好地处理项目。
+以下是这篇文章的精华所在...
+（1）使用.bind()方法非常浪费性能因为它把同一个事件处理函数附加到了每一个匹配的元素上
+（2）你应该停止使用.live()方法因为它被弃用了同时也会带来很多问题
+（3）使用.delegate()方法会给你带来很多好处当你需要解决一些性能上的问题和对动态添加的元素作出处理
+（4）新的.on()方法其实就是模拟.bind() ， .live() 和.delegate()实现的语法糖，具体取决于你如何调用它
+（5）新的方向是使用新的.on()方法。先熟悉语法，并开始在你的所有的Jquery 1.7版本以上的项目使用它吧！
+
+46、JQuery一个对象可以同时绑定多个事件，这是如何实现的？
+bind() 方法为被选元素添加一个或多个事件处理程序，并规定事件发生时运行的函数
+on() 方法事件处理程序到当前选定的jQuery对象中的元素
+delegate() 方法为指定的元素添加一个或多个事件处理程序
+live() 方法为被选元素附加一个或多个事件处理程序，并规定当这些事件发生时运行的函数
+47、是否知道自定义事件。jQuery里的fire函数是什么意思，什么时候用？
+48、jQuery 是通过哪个方法和 Sizzle 选择器结合的？（jQuery.fn.find()进入Sizzle）
+49、针对 jQuery性能的优化方法？
+https://www.jb51.net/article/87002.htm
+（1）总是使用#id去寻找element。
+在jQuery中最快的选择器是ID选择器 ($('#someid')). 这是因为它直接映射为JavaScript的getElementById()方法。
+（2）在classes前面使用Tags。在jquery中第二快的选择器就是Tag选择器($(`head`))。这是因为它直接映射到js的getElementByTagName()方法。
+（3）缓存jquery对象
+（4）更好的利用链
+（5）使用子查询
+（6）限制直接对DOM操作
+（7）事件委托（冒泡事件）
+除非特别说明，每一个JavaScript事件（如click, mouseover 等）在DOM结构树上都会冒泡到它的父元素上。如果我们想让很多elements(nodes)调用同一个function这是非常有用的。取而代之的是 你可以只对它们的父级绑定一次，而且可以计算出是哪一个节点触发了事件，而不是绑定一个事件监听器到很多节点上这种效率低下的方式。
+（8）消除查询浪费
+虽然jQuery对没有找到任何匹配的elements处理的很好，但是它还是需要花费时间去查找的。如果你的站点有一个全局的JavaScript，你可能会把每个jQuery function都放在 $(document).ready(function(){ // all my glorious code })里。 不要这样做。只去放一些页面上适合用到的function。这样做最有效的方式是你的模板可以完全控制任何时候或者地方执行JavaScript以内联脚 本的方式初始化function。例如，在你的“article”页面模板里，你可能在body标签关闭之前包含以下代码
+<script type="text/javascript>mylib.article.init();</script></body& gt;如果你的页面模板包含多种有可能在页面或者不在页面上的模块，或者为了可视化效果你需要它们稍后再初如化，你应该在这些模块之后立即放置初如化函数。
+（9）遵从$(windows).load
+有 一种诱惑会使jQuery开发者hook所有事情到 $(document).ready 这个虚伪的事件里。毕竟在大多数例子里都可以看到这样使用。虽然$(document).ready 非常有用，它在页面呈现时发生，虽然其它对象还在下载中。如果你发现你的页面在下载中停顿，就有可能是$(document).ready 引起的。你可以通过把jQuery functions帮定到$(window).load事件来减少下面下载时的CPU使用率，它是在所有HTML（包括iframe内容）都下载完以后才 去调用所有对象的。
+
+50、Jquery与jQuery UI 有啥区别？
+ *jQuery是一个js库，主要提供的功能是选择器，属性修改和事件绑定等等。
+ *jQuery UI则是在jQuery的基础上，利用jQuery的扩展性，设计的插件。
+  提供了一些常用的界面元素，诸如对话框、拖动行为、改变大小行为等等
+53、jQuery中没有提供这个功能，所以你需要先编写两个jQuery的扩展：
+	$.fn.stringifyArray = function(array) {
+	    return JSON.stringify(array)
+	}
+	$.fn.parseArray = function(array) {
+	    return JSON.parse(array)
+	}
+	然后调用：
+	$("").stringifyArray(array)
+54、jQuery和Zepto的区别？各自的使用场景？
+一、同
+zepto最初是为了移动端开发的库，是jquery的轻量级替代品，因为它的API和jquery相似，而文件更小。Zepto最大的优势是它的文件大小，只有8k多，是目前功能完备的库中最小的一个，尽管不大，zepto所提供的工具足以满足开发程序的需要。大多数在jquery中常用的api和zepto都有，zepto中还有一些jquery中没有的。另外，因为zepto的兼容，所以用起来及其容易。
+二、不同
+（1）针对移动端程序，zepto有一些基本的触摸事件可以用来做触摸屏交互，zepto是不支持IE浏览器的。
+（2）Dom操作的区别：添加id时jquery不会生效而zepto会生效
+（3）事件触发的区别：使用jquery时load事件的处理函数不会执行；使用zepto时load事件的处理函数会执行
+（4）事件委托的区别
+var $doc = $(document);
+$doc.on('click', '.a', function () {
+    alert('a事件');
+    $(this).removeClass('a').addClass('b');
+});
+$doc.on('click', '.b', function () {
+    alert('b事件');
+});
+在Zepto中，当a被点击后，依次弹出了内容为”a事件“和”b事件“，说明虽然事件委托在.a上可是却也触发了.b上的委托。但是在 jQuery 中只会触发.a上面的委托弹出”a事件“。Zepto中，document上所有的click委托事件都依次放入到一个队列中，点击的时候先看当前元素是不是.a，符合则执行，然后查看是不是.b，符合则执行。而在jQuery中，document上委托了2个click事件，点击后通过选择符进行匹配，执行相应元素的委托事件。
+(5)width()和height()的区别：Zepto由盒模型(box-sizing)决定，用.width()返回赋值的width，用.css('width')返回加border等的结果；jQuery会忽略盒模型，始终返回内容区域的宽/高(不包含padding、border)。
+(6)offset()的区别：Zepto返回{top,left,width,height}；jQuery返回{width,height}。
+(7)Zepto无法获取隐藏元素宽高，jQuery 可以。
+(8)Zepto中没有为原型定义extend方法而jQuery有。
+(9)Zepto 的each 方法只能遍历 数组，不能遍历JSON对象。
+(10)Zepto在操作dom的selected和checked属性时尽量使用prop方法，在读取属性值的情况下优先于attr。Zepto获取select元素的选中option不能用类似jQuery的方法$('option[selected]'),因为selected属性不是css的标准属性。应该使用$('option').not(function(){ return !this.selected })。
+
+55、针对 jQuery 的优化方法？
+ *基于Class的选择性的性能相对于Id选择器开销很大，因为需遍历所有DOM元素。
+ *频繁操作的DOM，先缓存起来再操作。用Jquery的链式调用更好。
+  比如：var str=$("a").attr("href");
+ *for (var i = size; i < arr.length; i++) {}
+  for 循环每一次循环都查找了数组 (arr) 的.length 属性，在开始循环的时候设置一个变量来存储这个数字，可以让循环跑得更快：
+  for (var i = size, length = arr.length; i < length; i++) {}
+55、Zepto的点透问题如何解决？
+一、“点透”是什么
+你可能碰到在列表上创建一个弹出层有一个关闭的按钮，你点了这个按钮关闭弹出层后，这个按钮正下方的内容也会执行点击事件（或打开链接）。这个被定义为这是一个点击“点透”现象。
+二、为什么会出现点透
+zepto的tap通过监听绑定在docment上的touch事件来完成tap事件的模拟的，及tap事件是冒泡到docment上触发的再点击完成时的tap需要冒泡到docment上才会触发，而在冒泡到docment之前，用户手的接触屏幕和离开屏幕是会触发click事件的，因为click事件还在延迟的300ms之中，当300ms到来的时候，click到的其实不是完成而是隐藏之后的下方的元素，如果正下方的元素绑定的有click事件此时便会触发，如果没有绑定click事件的话就当没click，但是正下方的是input输入框，点击默认聚焦而弹出输入键盘，也就出现了上面的点透现象。
+三、点透的解决方法
+（1）引入fastclick.js，因为fastclick源码不依赖其他库所以可以在原生的js前加上
+ window.addEventListener( "load", function() {
+    FastClick.attach( document.body );
+ }, false );
+（2）用tochend代替tap事件并阻止调touhend的默认行为preventDefault()
+ $("#cbFinish").on("touchend", function (event) {
+   //很多处理比如隐藏什么的
+    event.preventDefault();
+ });
+(4)延迟一定的时间（300ms+）来处理事件
+ $("#cbFinish").on("tap", function (event) {
+    setTimeout(function(){
+    //很多处理比如隐藏什么的
+    },320);
+ }); 
+56、jQueryUI如何自定义组件?
+https://www.cnblogs.com/ambar/archive/2010/11/12/how-to-create-a-jquery-ui-widget.html
+57、需求：实现一个页面操作不会整页刷新的网站，并且能在浏览器前进、后退时正确响应。给出你的技术实现方案？
+用cookie或者localStorage来记录应用的状态即可，刷新页面时读取一下这个状态，然后发送相应ajax请求来改变页面即可
+ HTML5里引用了新的API，就是history.pushState和history.replaceState，就是通过这个接口做到无刷新改变页面URL的
+    虽然ajax可以无刷新改变页面内容，但无法改变页面URL
+    其次为了更好的可访问性，内容发生改变后，改变URL的hash。但是hash的方式不能很好的处理浏览器的前进、后退等问题
+    有的浏览器引入了onhashchange的接口，不支持的浏览器只能定时去判断hash是否改变
+    再有，ajax的使用对搜索引擎很不友好，往往蜘蛛爬到的区域是空的
+    为了解决传统ajax带来的问题，HTML5里引入了新的API，即：history.pushState, history.replaceStat
+    可以通过pushState和replaceState接口操作浏览器历史，并且改变当前页面的URL。
+    pushState是将指定的URL添加到浏览器历史里，replaceState是将指定的URL替换当前的URL。
+    如何调用
+    var state = {    title: title,    url: options.url,    otherkey: othervalue};window.history.pushState(state, document.title, url);
+    state对象除了要title和url之外，也可以添加其他的数据，比如：还想将一些发送ajax的配置给保存起来。
+    replaceState和pushState是相似的，不需要多做解释。
+    如何响应浏览器的前进、后退操作
+    window对象上提供了onpopstate事件，上面传递的state对象会成为event的子对象，这样就可以拿到存储的title和URL了。
+    window.addEventListener(‘popstate’, function(e){ if (history.state){    var state = e.state; //do something(state.url, state.title); }}, false);
+    这样就可以结合ajax和pushState完美的进行无刷新浏览了。
+
+59、如何判断当前脚本运行在浏览器还是node环境中？（阿里）
+  this === window ? 'browser' : 'node';
+  通过判断Global对象是否为window，如果不为window，当前脚本没有运行在浏览器中
+60、移动端最小触控区域是多大？
+移动端最小触控区域44*44px，再小就容易点击不到或者误点，可参考《iOS Human Interface Guidelines》: https://developer.apple.com/library/ios/documentation/userexperience/conceptual/mobilehig/LayoutandAppearance.html
+
+61、jQuery 的 slideUp动画 ，如果目标元素是被外部事件驱动, 当鼠标快速地连续触发外部元素事件, 动画会滞后的反复执行，该如何处理呢?
+    jquery stop(): 如：$("#div").stop().animate({width:"100px"},100);
+
+62、把 Script 标签 放在页面的最底部的body封闭之前 和封闭之后有什么区别？浏览器会如何解析它们？
+html标签只包含head 和body两个标签，解析时，所有标签都会解析进这两个标签里边。body之前的任何位置都会解析进head里边，之后的都会解析进body里边。
+
+63、移动端的点击事件的有延迟，时间是多久，为什么会有？ 怎么解决这个延时？（click 有 300ms 延迟,为了实现safari的双击事件的设计，浏览器要知道你是不是要双击操作。）
+https://blog.csdn.net/xjun0812/article/details/64919063
+
+64、Underscore 对哪些 JS 原生对象进行了扩展以及提供了哪些好用的函数方法？
+
+66、那些操作会造成内存泄漏？
+ 内存泄漏指任何对象在您不再拥有或需要它之后仍然存在。
+ 垃圾回收器定期扫描对象，并计算引用了每个对象的其他对象的数量。如果一个对象的引用数量为 0（没有其他对象引用过该对象），或对该对象的惟一引用是循环的，那么该对象的内存即可回收。
+ setTimeout 的第一个参数使用字符串而非函数的话，会引发内存泄漏。
+ 闭包、控制台日志、循环（在两个对象彼此引用且彼此保留时，就会产生一个循环）
+67、JQuery一个对象可以同时绑定多个事件，这是如何实现的？
+ * 多个事件同一个函数：
+ 	$("div").on("click mouseover", function(){});
+ * 多个事件不同函数
+ 	$("div").on({
+ 		click: function(){},
+ 		mouseover: function(){}
+ 	});
+
+68、什么是“前端路由”?什么时候适合使用“前端路由”? “前端路由”有哪些优点和缺点?
+前端的路由和后端的路由在实现技术上不一样，但是原理都是一样的。在 HTML5 的 history API 出现之前，前端的路由都是通过 hash 来实现的，hash 能兼容低版本的浏览器。如果我们把上面例子中提到的 3 个页面用 hash 来实现的话，它的 URI 规则中需要带上 #。
+1 http://10.0.0.1/2 http://10.0.0.1/#/about3 http://10.0.0.1/#/concat
+Web 服务并不会解析 hash，也就是说 # 后的内容 Web 服务都会自动忽略，但是 JavaScript 是可以通过 window.location.hash 读取到的，读取到路径加以解析之后就可以响应不同路径的逻辑处理。
+history 是 HTML5 才有的新 API，可以用来操作浏览器的 session history。基于 history 来实现的路由可以和最初的例子中提到的路径规则一样。
+1 http://10.0.0.1/2 http://10.0.0.1/about3 http://10.0.0.1/concat
+三、前端路由的使用场景？
+前端路由更多用在单页应用上, 也就是SPA, 因为单页应用, 基本上都是前后端分离的, 后端自然也就不会给前端提供路由。
+四、前端路由优缺点
+优点：
+（1）从性能和用户体验的层面来比较的话，后端路由每次访问一个新页面的时候都要向服务器发送请求，然后服务器再响应请求，这个过程肯定会有延迟。而前端路由在访问一个新页面的时候仅仅是变换了一下路径而已，没有了网络延迟，对于用户体验来说会有相当大的提升。
+（2）在某些场合中，用ajax请求，可以让页面无刷新，页面变了但Url没有变化，用户就不能复制到想要的地址，用前端路由做单页面网页就很好的解决了这个问题
+缺点：
+使用浏览器的前进，后退键的时候会重新发送请求，没有合理地利用缓存。
+
+69、用js实现千位分隔符?(来源：前端农民工，提示：正则+replace)
+  参考：http://www.tuicool.com/articles/ArQZfui
+  function commafy(num) {
+      return num && num
+          .toString()
+          .replace(/(\d)(?=(\d{3})+\.)/g, function($0, $1) {
+              return $1 + ",";
+          });
+  }
+  console.log(commafy(1234567.90)); //1,234,567.90
+70、检测浏览器版本版本有哪些方式？
+  功能检测、userAgent特征检测
+  比如：navigator.userAgent
+  //"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36
+    (KHTML, like Gecko) Chrome/41.0.2272.101 Safari/537.36"
+
+71、我们给一个dom同时绑定两个点击事件，一个用捕获，一个用冒泡。会执行几次事件，会先执行冒泡还是捕获？
+
+72、使用JS实现获取文件扩展名？
+  function getFileExtension(filename) {
+    return filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2);
+  }
+  String.lastIndexOf() 方法返回指定值（本例中的'.'）在调用该方法的字符串中最后出现的位置，如果没找到则返回 -1。
+  对于'filename'和'.hiddenfile'，lastIndexOf的返回值分别为0和-1无符号右移操作符(»>) 将-1转换为4294967295，将-2转换为4294967294，这个方法可以保证边缘情况时文件名不变。
+  String.prototype.slice() 从上面计算的索引处提取文件的扩展名。如果索引比文件名的长度大，结果为""。
+73、Webpack热更新实现原理?
+  （1） Webpack编译期，为需要热更新的 entry 注入热更新代码(EventSource通信)
+  （2）页面首次打开后，服务端与客户端通过 EventSource 建立通信渠道，把下一次的 hash 返回前端
+  （3） 客户端获取到hash，这个hash将作为下一次请求服务端 hot-update.js 和 hot-update.json的hash
+  （4） 修改页面代码后，Webpack 监听到文件修改后，开始编译，编译完成后，发送 build 消息给客户端
+  （5）客户端获取到hash，成功后客户端构造hot-update.js script链接，然后插入主文档
+  （6）hot-update.js 插入成功后，执行hotAPI 的 createRecord 和 reload方法，获取到 Vue 组件的 render方法，重新 render 组件， 继而实现 UI 无刷新更新。
+
+76、请介绍一下JS之事件节流？
+
+77、什么是JS的函数防抖？
+https://www.cnblogs.com/wssdx/p/11557706.html
+一、什么是函数防抖
+概念：函数防抖（debounce），就是指触发事件后，在 n 秒内函数只能执行一次，如果触发事件后在 n 秒内又触发了事件，则会重新计算函数延执行时间。
+举个栗子，坐电梯的时候，如果电梯检测到有人进来（触发事件），就会多等待 10 秒，此时如果又有人进来（10秒之内重复触发事件），那么电梯就会再多等待 10 秒。在上述例子中，电梯在检测到有人进入 10 秒钟之后，才会关闭电梯门开始运行，因此，“函数防抖”的关键在于，在 一个事件 发生 一定时间 之后，才执行 特定动作。二、为什么需要函数防抖
+前端开发过程中，有一些事件，常见的例如，onresize，scroll，mousemove ,mousehover 等，会被频繁触发（短时间内多次触发），不做限制的话，有可能一秒之内执行几十次、几百次，如果在这些函数内部执行了其他函数，尤其是执行了操作 DOM 的函数（浏览器操作 DOM 是很耗费性能的），那不仅会浪费计算机资源，还会降低程序运行速度，甚至造成浏览器卡死、崩溃。这种问题显然是致命的。
+除此之外，短时间内重复的 ajax 调用不仅会造成数据关系的混乱，还会造成网络拥塞，增加服务器压力，显然这个问题也是需要解决的。
+三、函数防抖如何解决上述问题
+根据上面对问题的分析，细细思索，可以想到如下解决方案。
+函数防抖的要点，是需要一个 setTimeout 来辅助实现，延迟运行需要执行的代码。如果方法多次触发，则把上次记录的延迟执行代码用 clearTimeout 清掉，重新开始计时。若计时期间事件没有被重新触发，等延迟时间计时完毕，则执行目标代码。
+四、函数防抖的代码实现
+根据以上分析，我们对 “函数防抖” 来进行简单的代码实现，如下：
+function debounce(fn,wait){
+    var timer = null;
+    return function(){
+        if(timer !== null){
+            clearTimeout(timer);
+        }
+        timer = setTimeout(fn,wait);
+    }
+}
+    function handle(){
+    console.log(Math.random());
+}
+window.addEventListener("resize",debounce(handle,1000));
+以上代码本人亲测有效，小伙伴们可放心食用（注意，函数触发方式为 “resize”，改变窗口大小，观察浏览器控制台的变化）。
+五、函数节流的使用场景
+函数防抖一般用在什么情况之下呢？一般用在，连续的事件只需触发一次回调的场合。具体有：
+(1)搜索框搜索输入。只需用户最后一次输入完，再发送请求；
+(2)用户名、手机号、邮箱输入验证；
+(3)浏览器窗口大小改变后，只需窗口调整完后，再执行 resize 事件中的代码，防止重复渲染。
+目前遇到过的用处就是这些，理解了原理与实现思路，小伙伴可以把它运用在任何需要的场合，提高代码质量。
+总结
+函数防抖其实是分为 “立即执行版” 和 “非立即执行版” 的，根据字面意思就可以发现他们的差别，所谓立即执行版就是 触发事件后函数不会立即执行，而是在 n 秒后执行，如果在 n 秒内又触发了事件，则会重新计算函数执行时间。 而 “非立即执行版” 指的是 触发事件后函数会立即执行，然后 n 秒内不触发事件才能继续执行函数的效果。。
+在开发过程中，我们需要根据不同的场景来决定我们需要使用哪一个版本的防抖函数，一般来讲上述的防抖函数都能满足大部分的场景需求。但我们也可以将非立即执行版和立即执行版的防抖函数结合起来，实现最终的双剑合璧版本的防抖函数，以下为小伙伴们做了简单的实现：
+/**
+* @desc 函数防抖---“立即执行版本” 和 “非立即执行版本” 的组合版本
+* @param func 需要执行的函数
+* @param wait 延迟执行时间（毫秒）
+* @param immediate---true 表立即执行，false 表非立即执行
+**/
+function debounce(func,wait,immediate) {
+let timer;
+return function () {
+let context = this;
+let args = arguments;
+if (timer) clearTimeout(timer);
+if (immediate) {
+var callNow = !timer;
+timer = setTimeout(() => {
+timer = null;
+}, wait)
+if (callNow) func.apply(context, args)
+} else {
+timer = setTimeout(function(){
+func.apply(context, args)
+}, wait);
+}
+}
+}
+function handle(){
+console.log(Math.random());
+}
+// window.addEventListener("mousemove",debounce(handle,1000,true)); // 调用立即执行版本
+window.addEventListener("mousemove",debounce(handle,1000,false)); // 调用非立即执行版本
+
+78、ES6是如何实现编译成ES5的？
+
+79、css-loader的原理？
+
+80、对async 和 await的认识
+https://segmentfault.com/a/1190000019006291?utm_source=tag-newest
+
+81、es6继承和es5继承的区别
+https://www.cnblogs.com/annika/p/9073572.html
+
 
 
  
